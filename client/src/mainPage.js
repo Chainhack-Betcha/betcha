@@ -13,23 +13,31 @@ import Add from '@material-ui/icons/Add';
 
 
 
+const styles = {
+  button: {
+    marginLeft : 20,
+  }
+}
 
 class MainPage extends React.Component {
 
   constructor(props) {
     super(props);
-    const betCards = ['haha'];
+    const betCards = [];
 
   this.state = {
     betCards,
   };
 }
 
-  handleClick = () => {
-
+  handleClick (event) {
+    const {betCards} = this.state;
+    betCards.push('haha');
+    this.setState({ betCards});
   }
 
   render() {
+    const { classes } = this.props;
     const { betCards } = this.state;
 		return (
 	 <div>
@@ -41,11 +49,11 @@ class MainPage extends React.Component {
           </Toolbar>
           </AppBar>
           <div>
-            {betCards.map((tcr) => (
+            {betCards.map((bet) => (
               <BetCard />
             ))}
           </div>
-          <Button variant="fab" onClick={this.handleClick}>
+          <Button size="small" variant="fab" onClick={this.handleClick.bind(this)} className={classes.button}>
             <Add/>
           </Button>
 
@@ -55,5 +63,4 @@ class MainPage extends React.Component {
 };
 
 
-
-export default MainPage;
+export default withStyles(styles)(MainPage);
