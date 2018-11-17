@@ -2,19 +2,21 @@ pragma solidity ^0.4.24;
 
 contract UserProfiles {
 
-    mapping (string => address) users;
+    mapping (string => address) userToAddress;
+    mapping (address => string) addressToUser;
 
-    constructor() public {
+    function getUserIdOf(address _address) view external returns (string userId) {
+        userId = addressToUser[_address];
     }
 
-    function getAddressOf(string _userId) view external returns (address) {
-        address addr = users[_userId];
-        require(addr != address(0), 'User does not exist');
-        return addr;
+    function getAddressOf(string _userId) view external returns (address addr) {
+        addr = userToAddress[_userId];
     }
 
     function registerUser(string _userId) external returns (bool success) {
-        users[_userId] = msg.sender;
+        require(bytes(_userId).length > 0, "userId cannot be empty");
+        userToAddress[_userId] = msg.sender;
+        addressToUser[msg.sender] = _userId;
         return true;
     }
 }
