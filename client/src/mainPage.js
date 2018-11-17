@@ -12,7 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import betchaDialog from './betchaDialog';
 
 
 const styles = {
@@ -23,14 +23,13 @@ const styles = {
   },
   button: {
     display: 'inline',
-    marginTop: 20
+    marginTop: 20,
   },
   sectionHoldingCards: {
     width : '90%',
 
   },
   sectionHoldingButton: {
-    display: 'flex',
     flexDirection: 'row-reverse',
   },
   card : {
@@ -46,6 +45,7 @@ class MainPage extends React.Component {
 
   this.state = {
     betCards,
+    betchaDialogOpened: false,
   };
 }
 
@@ -55,10 +55,23 @@ class MainPage extends React.Component {
     this.setState({ betCards});
   }
 
+  handleAddClick() {
+  	return () => { 
+  		this.setState({ betchaDialogOpened: true });
+  	};
+  }
+
+  handlebetchaDialogClose() {
+  	return () => {
+  		this.setState({ betchaDialogOpened: false });
+  	};
+  }
+
   render() {
     const { classes } = this.props;
-    const { betCards } = this.state;
-		return (
+    const { betCards, betchaDialogOpened } = this.state;
+
+    return (
 	 <div>
        <AppBar position="static" color="primary">
         <Toolbar>
