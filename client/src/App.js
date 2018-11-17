@@ -75,6 +75,7 @@ class App extends Component {
       <div className={classes.root} >
        <MuiThemeProvider theme={muiTheme}>
           <MainPage/>
+          <betchaDialog/>
         </MuiThemeProvider>
       </div>
     );

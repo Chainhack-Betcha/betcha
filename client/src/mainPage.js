@@ -10,6 +10,7 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
+import betchaDialog from './betchaDialog';
 
 
 
@@ -22,6 +23,7 @@ class MainPage extends React.Component {
 
   this.state = {
     betCards,
+    betchaDialogOpened: false,
   };
 }
 
@@ -29,8 +31,21 @@ class MainPage extends React.Component {
 
   }
 
+  handleAddClick() {
+  	return () => { 
+  		this.setState({ betchaDialogOpened: true });
+  	};
+  }
+
+  handlebetchaDialogClose() {
+  	return () => {
+  		this.setState({ betchaDialogOpened: false });
+  	};
+  }
+
   render() {
-    const { betCards } = this.state;
+    const { betCards, betchaDialogOpened } = this.state;
+
 		return (
 	 <div>
        <AppBar position="static" color="primary">
@@ -46,7 +61,7 @@ class MainPage extends React.Component {
             ))}
           </div>
           <Button variant="fab" onClick={this.handleClick}>
-            <Add/>
+           <Add/>
           </Button>
 
       </div>
