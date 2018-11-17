@@ -10,12 +10,31 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 
 
 const styles = {
+  gridContainer : {
+    flexGrow: 1,
+    marginLeft: 15,
+    marginRight: 15,
+  },
   button: {
-    marginLeft : 20,
+    display: 'inline',
+    marginTop: 20
+  },
+  sectionHoldingCards: {
+    width : '90%',
+
+  },
+  sectionHoldingButton: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
+  card : {
+    display : 'inline',
   }
 }
 
@@ -23,7 +42,7 @@ class MainPage extends React.Component {
 
   constructor(props) {
     super(props);
-    const betCards = [];
+    const betCards = ['haha'];
 
   this.state = {
     betCards,
@@ -48,14 +67,20 @@ class MainPage extends React.Component {
           </Typography>
           </Toolbar>
           </AppBar>
-          <div>
+          <Grid container className={classes.gridContainer}>
+          <div className={classes.sectionHoldingCards}>
             {betCards.map((bet) => (
-              <BetCard />
+              <Grid item xs={17}>
+              <BetCard className={classes.card}/>
+              </Grid>
             ))}
           </div>
+          <div className={classes.sectionHoldingButton}>
           <Button size="small" variant="fab" onClick={this.handleClick.bind(this)} className={classes.button}>
-            <Add/>
+            <Add />
           </Button>
+          </div>
+          </Grid>
 
       </div>
 		);
