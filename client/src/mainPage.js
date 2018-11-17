@@ -14,12 +14,17 @@ import betchaDialog from './betchaDialog';
 
 
 
+const styles = {
+  button: {
+    marginLeft : 20,
+  }
+}
 
 class MainPage extends React.Component {
 
   constructor(props) {
     super(props);
-    const betCards = ['haha'];
+    const betCards = [];
 
   this.state = {
     betCards,
@@ -27,8 +32,10 @@ class MainPage extends React.Component {
   };
 }
 
-  handleClick = () => {
-
+  handleClick (event) {
+    const {betCards} = this.state;
+    betCards.push('haha');
+    this.setState({ betCards});
   }
 
   handleAddClick() {
@@ -44,9 +51,10 @@ class MainPage extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     const { betCards, betchaDialogOpened } = this.state;
 
-		return (
+    return (
 	 <div>
        <AppBar position="static" color="primary">
         <Toolbar>
@@ -56,12 +64,13 @@ class MainPage extends React.Component {
           </Toolbar>
           </AppBar>
           <div>
-            {betCards.map((tcr) => (
+            {betCards.map((bet) => (
               <BetCard />
             ))}
           </div>
-          <Button variant="fab" onClick={this.handleClick}>
-           <Add/>
+
+          <Button size="small" variant="fab" onClick={this.handleClick.bind(this)} className={classes.button}>
+            <Add/>
           </Button>
 
       </div>
@@ -70,5 +79,4 @@ class MainPage extends React.Component {
 };
 
 
-
-export default MainPage;
+export default withStyles(styles)(MainPage);
