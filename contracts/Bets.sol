@@ -73,7 +73,7 @@ contract Bets {
         return bets[_betId].judge;
     }
 
-    function revealOutcome(uint _betId, uint _outcomeIndex) internal {
+    function revealOutcome(uint _betId, uint _outcomeIndex) external {
         Bet storage bet = bets[_betId];
 
         require(msg.sender == bet.judge, "Only the judge can reveal outcome");

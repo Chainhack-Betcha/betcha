@@ -20,7 +20,7 @@ export default class BetsService {
         } else {
           const allBets = events.map(({ args }) => ({
             betId: args.betId,
-            // outcomes: args.outcomes.map(window.web3.toAscii),
+            outcomes: args.outcomes.map(o => window.web3.toAscii(o).trim()),
             judge: args.judge,
           }));
           resolve(allBets);
@@ -36,6 +36,18 @@ export default class BetsService {
   async create(outcomes) {
     return new Promise((resolve, reject) => {
       this.bets.create(outcomes.map(window.web3.toHex), (error, tx) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(tx);
+        }
+      });
+    });
+  }
+
+  async getJudgeOf(betId) {
+    return new Promise((resolve, reject) => {
+      this.bets.getJudgeOf(betId, (error, tx) => {
         if (error) {
           reject(error);
         } else {
