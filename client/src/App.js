@@ -8,7 +8,7 @@ import TokenService from './api/TokenService';
 import './App.css';
 
 export default class App extends Component {
-  state = { web3: null, betsService: null, tokenService: null };
+  state = { web3: null, betsService: null, tokenService: null, allBets: [] };
 
   componentDidMount = async () => {
     try {
@@ -18,7 +18,8 @@ export default class App extends Component {
       await betsService.init(window.web3);
       const tokenService = new TokenService();
       await tokenService.init(window.web3);
-      this.setState({ web3: window.web3, betsService, tokenService });
+      const allBets = await betsService.getAllBets();
+      this.setState({ web3: window.web3, betsService, tokenService, allBets });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert('Failed to load web3, accounts, or contract. Check console for details.');
