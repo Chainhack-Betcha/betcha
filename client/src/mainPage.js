@@ -13,6 +13,8 @@ import Add from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import betchaDialog from './betchaDialog';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 const styles = {
@@ -38,6 +40,20 @@ const styles = {
   },
   card : {
     display : 'inline',
+  },
+  icon: {
+    fontSize: 35,
+    color: 'secondary',
+  },
+  iconButton: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
+  div: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    paddingLeft: 1221,
+
   }
 }
 
@@ -71,6 +87,10 @@ class MainPage extends React.Component {
   	};
   }
 
+  handleUserProfileClick() {
+
+  }
+
   render() {
     const { classes } = this.props;
     const { betCards, betchaDialogOpened } = this.state;
@@ -82,6 +102,14 @@ class MainPage extends React.Component {
           <Typography variant='h4' color="secondary">
             Betcha
           </Typography>
+          <div className={classes.div}>
+          <IconButton
+            color="inherit"
+            className={classes.iconButton}
+            >
+          <AccountCircle className={classes.icon} color='secondary'/>
+          </IconButton>
+          </div>
           </Toolbar>
           </AppBar>
           <Grid container className={classes.gridContainer}>
