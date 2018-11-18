@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 export default class NewBetSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: 'description',
-      outcomes: ['a', 'b'],
+      description: '',
+      outcomes: [],
+      deleted: false,
     };
   }
 
@@ -29,6 +32,20 @@ export default class NewBetSection extends React.Component {
     });
   }
 
+  removeItem = () => (event) => {
+      const currentOutcome = event.target.textContent;
+      const updatedOutcomes = this.state.outcomes.filter((outcome) => {
+        return currentOutcome !== outcome;
+      });
+
+      this.setState({
+        outcomes: updatedOutcomes,
+      });
+
+      !this.state.deleted && this.setState({
+        deleted: true
+      });
+  }
   onCreate = () => async () => {
     const { betsService, onCreateBet } = this.props;
     const { description, outcomes } = this.state;
@@ -77,7 +94,7 @@ export default class NewBetSection extends React.Component {
               </List>
               <nav className="nav-add">
                 <input type="text" id="nameinput" placeholder="Outcome" />
-                <button type="button" onClick={this.addItem()}>
+                <button type="button" className="btn btn-primary" onClick={this.addItem()}>
                 Add
                 </button>
               </nav>
