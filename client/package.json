@@ -12,12 +12,13 @@
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.2",
     "popper.js": "^1.14.5",
+    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "truffle-contract": "^4.0.0-next.0",
-    "web3": "^1.0.0-beta.35"
+    "web3": "^0.20.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,23 +1,28 @@
 import { getBetsContract } from './config';
 
 export default class BetsService {
-  constructor(web3) {
-    this.web3 = web3;
+  constructor() {
+    this.web3 = null;
     this.bets = null;
   }
 
-  async init() {
+  async init(web3) {
+    this.web3 = web3;
     this.bets = await getBetsContract(this.web3);
+    window.bets = this;
   }
 
   async getAllBets() {
     return new Promise((resolve, reject) => {
       this.bets.Creation({}, { fromBlock: 0, toBlock: 'latest' }).get((error, events) => {
         if (error) {
-          throw new Error(error);
           reject(error);
         } else {
-          const allBets = events;
+          const allBets = events.map(({ args }) => ({
+            betId: args.betId,
+            // outcomes: args.outcomes.map(window.web3.toAscii),
+            judge: args.judge,
+          }));
           resolve(allBets);
         }
       });
@@ -29,7 +34,15 @@ export default class BetsService {
    * @param {string[]} outcomes All possible outcomes of the bet
    */
   async create(outcomes) {
-    this.bets.create(outcomes);
+    return new Promise((resolve, reject) => {
+      this.bets.create(outcomes.map(window.web3.toHex), (error, tx) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(tx);
+        }
+      });
+    });
   }
 
   /**
