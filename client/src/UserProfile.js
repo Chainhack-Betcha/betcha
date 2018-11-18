@@ -7,8 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
-import UserDashboard from './UserDashboard';
+import UserDashboard from './UserDashBoard';
 import UserProfileCard from './UserProfileCard';
+import BackIcon from '@material-ui/icons/ArrowBackIos';
 
 const styles = {
   card: {
@@ -34,7 +35,9 @@ class UserProfile extends React.Component {
     };
   }
 
-
+  handleBack = () => {
+    this.props.history.push("/");
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -43,19 +46,18 @@ class UserProfile extends React.Component {
           <Toolbar>
             <IconButton
               className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-              onClick={this.handleMenu}
+              color="secondary"
+              onClick={this.handleBack}
             >
-              <MenuIcon />
+              <BackIcon color="secondary" />
             </IconButton>
-            <Typography variant="h5" color="inherit" className={classes.grow}>
-               TCR Simulator
+            <Typography variant="h5" color="secondary" className={classes.grow}>
+               User Profile
             </Typography>
           </Toolbar>
         </AppBar>
         <UserProfileCard />
-        <UserDashboard />
+
       </div>
     );
   }

@@ -6,9 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import PendingList from './PendingList';
-import RejectedList from './RejectedList';
-import AcceptedList from './AcceptedList';
+
 
 function TabContainer(props) {
   const { children } = props;
@@ -53,7 +51,7 @@ class UserDashboard extends React.Component {
       //     return 'Accepted Tab';
       return (
         <div>
-          <AcceptedList type="profile" />
+
         </div>
       );
     }
@@ -61,14 +59,14 @@ class UserDashboard extends React.Component {
       // return 'Rejected Tab';
       return (
         <div>
-          <RejectedList />
+
         </div>
       );
     }
     // return 'Pending Tab';
     return (
       <div>
-        <PendingList />
+
       </div>
     );
   }

@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import Icon from '@material-ui/core/Icon';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = {
   root: {
@@ -27,6 +27,10 @@ const styles = {
   details: {
     margin: '10px',
   },
+  editIcon : {
+    fontSize: 17,
+    paddingRight: 4,
+  }
 };
 
 class UserProfileCard extends React.Component {
@@ -78,10 +82,10 @@ Account Balance:
           </CardContent>
           <CardActions>
             <Button size="small">
+              <EditIcon className={classes.editIcon}/>
               Edit Profile
               {' '}
               {' '}
-              <Icon>edit_icon</Icon>
             </Button>
           </CardActions>
         </Card>

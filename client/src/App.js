@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
 import truffleContract from "truffle-contract";
-import MainPage from './mainPage';
 import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import UserProfile from './UserProfile';
+import MainPage from './mainPage';
+
 
 import "./App.css";
 
@@ -72,12 +75,14 @@ class App extends Component {
     //   return <div>Loading Web3, accounts, and contract...</div>;
     // } 
     return (
-      <div className={classes.root} >
-       <MuiThemeProvider theme={muiTheme}>
-          <MainPage/>
-        </MuiThemeProvider>
-        
-      </div>
+      <MuiThemeProvider theme={muiTheme}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route path="/UserProfile" component={UserProfile} />
+        </Switch>
+     </BrowserRouter>
+     </MuiThemeProvider>
     );
   }
 }

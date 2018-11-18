@@ -10,9 +10,12 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
-<<<<<<< HEAD
-import BetchaDialog from './BetchaDialog';
 import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import BetchaDialog from './betchaDialog';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 
@@ -29,16 +32,6 @@ const styles = theme => ({
   chip: {
     margin: theme.spacing.unit / 2,
   },
-});
-=======
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import betchaDialog from './betchaDialog';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
-
-const styles = {
   gridContainer : {
     flexGrow: 1,
     marginLeft: 15,
@@ -76,8 +69,7 @@ const styles = {
     paddingLeft: 1221,
 
   }
-}
->>>>>>> 0587efb67c2f16a558f1aaf8e3535e6899e6d0c1
+});
 
 class MainPage extends React.Component {
 
@@ -109,8 +101,10 @@ class MainPage extends React.Component {
   	};
   }
 
-  handleUserProfileClick() {
+  handleUserProfileClick = () =>{
 
+      this.props.history.push('/userProfile'); 
+  
   }
 
   render() {
@@ -128,6 +122,7 @@ class MainPage extends React.Component {
           <IconButton
             color="inherit"
             className={classes.iconButton}
+            onClick={this.handleUserProfileClick}
             >
           <AccountCircle className={classes.icon} color='secondary'/>
           </IconButton>
