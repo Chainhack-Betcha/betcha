@@ -11,6 +11,26 @@ const styles = {
   },
 };
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Montserrat',
+    fontSize: '5rem'
+  },
+  palette: {
+    primary: lightBlue,
+    secondary: amber
+  },
+  overrides: {
+    MuiAppBar: {
+      // Name of the styleSheet
+      root: {
+        // Name of the rule
+        boxShadow: 'none',
+      },
+    },
+  },
+});
+
 function SimpleAppBar(props) {
   const { classes } = props;
 

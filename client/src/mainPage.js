@@ -10,15 +10,30 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid'; 
-import BetchaDialog from './BetchaDialog';
 import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import BetchaDialog from './betchaDialog';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 
 
 const styles = theme => ({
+<<<<<<< HEAD
+=======
+  button: {
+    marginLeft : 20,
+  },
+  appBar: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 1,
+    paddingBottom: theme.spacing.unit * 1,
+  },
+  chip: {
+    margin: theme.spacing.unit / 2,
+  },
   gridContainer : {
     flexGrow: 1,
     marginLeft: 15,
@@ -50,6 +65,20 @@ const styles = theme => ({
   chip: {
     margin: theme.spacing.unit / 2,
   },
+  icon: {
+    fontSize: 35,
+    color: 'secondary',
+  },
+  iconButton: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
+  div: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    paddingLeft: 1221,
+
+  }
 });
 
 class MainPage extends React.Component {
@@ -82,6 +111,12 @@ class MainPage extends React.Component {
   	};
   }
 
+  handleUserProfileClick = () =>{
+
+      this.props.history.push('/userProfile'); 
+  
+  }
+
   render() {
     const { classes } = this.props;
     const { betCards, betchaDialogOpened } = this.state;
@@ -93,6 +128,15 @@ class MainPage extends React.Component {
           <Typography variant='h4' color="secondary">
             Betcha
           </Typography>
+          <div className={classes.div}>
+          <IconButton
+            color="inherit"
+            className={classes.iconButton}
+            onClick={this.handleUserProfileClick}
+            >
+          <AccountCircle className={classes.icon} color='secondary'/>
+          </IconButton>
+          </div>
           </Toolbar>
           </AppBar>
           <Grid container className={classes.gridContainer}>
