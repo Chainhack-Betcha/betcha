@@ -19,17 +19,21 @@ const styles = {
   gridContainer : {
     flexGrow: 1,
     marginLeft: 15,
-    marginRight: 15,
+    paddingLeft: 20,
   },
   button: {
     display: 'inline',
     marginTop: 20,
   },
   sectionHoldingCards: {
+    paddingLeft: 30,
     width : '90%',
 
   },
   sectionHoldingButton: {
+    paddingLeft: 5,
+    paddingRight: 10,
+    display: 'flex',
     flexDirection: 'row-reverse',
   },
   card : {
@@ -94,6 +98,7 @@ class MainPage extends React.Component {
           </Button>
           </div>
           </Grid>
+
 
       </div>
 		);
