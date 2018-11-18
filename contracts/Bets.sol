@@ -55,6 +55,7 @@ contract Bets {
     function betOn(uint _betId, uint _outcomeIndex, uint _stakeAmount) external {
         Bet storage bet = bets[_betId];
 
+        require(bet.judge != address(0), "Bet does not exist");
         require(msg.sender != bet.judge, "Judges cannot participate in their bets");
         require(_outcomeIndex < bet.outcomes.length, "Invalid outcome");
         require(token.balanceOf(msg.sender) >= _stakeAmount, "Not enough tokens");
@@ -76,6 +77,7 @@ contract Bets {
     function revealOutcome(uint _betId, uint _outcomeIndex) external {
         Bet storage bet = bets[_betId];
 
+        require(bet.judge != address(0), "Bet does not exist");
         require(msg.sender == bet.judge, "Only the judge can reveal outcome");
         require(_outcomeIndex < bet.outcomes.length, "Invalid outcome");
 

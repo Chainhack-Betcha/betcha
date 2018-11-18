@@ -59,6 +59,18 @@ contract BettyToken {
         return balances[msg.sender];
     }
 
+    function distributeToken(address[] addresses, uint256 _value) external {
+        uint total = _value * addresses.length;
+        require(total/_value == addresses.length); // Overflow check
+        require(balances[msg.sender] >= total); // Underflow check
+        balances[msg.sender] -= total;
+        for (uint i = 0; i < addresses.length; i++) {
+           balances[addresses[i]] += _value;
+           require(balances[addresses[i]] >= _value); // Overflow check
+           emit Transfer(msg.sender, addresses[i], _value);
+        }
+    }
+
     // IMPORTANT - Note that approve isn't used at this moment.
     function approve(address _spender, uint256 _value) public returns (bool success) {
         allowed[msg.sender][_spender] = _value;

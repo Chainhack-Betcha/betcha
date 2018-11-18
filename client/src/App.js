@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import getWeb3 from './utils/getWeb3';
 import NewBetSection from './NewBetSection';
+import TokenBalance from './components/TokenBalance';
 import BetsService from './api/BetsService';
+import TokenService from './api/TokenService';
 
 import './App.css';
 
 export default class App extends Component {
-  state = { web3: null, betsService: null };
+  state = { web3: null, betsService: null, tokenService: null };
 
   componentDidMount = async () => {
     try {
@@ -14,7 +16,9 @@ export default class App extends Component {
       await getWeb3();
       const betsService = new BetsService();
       await betsService.init(window.web3);
-      this.setState({ web3: window.web3, betsService });
+      const tokenService = new TokenService();
+      await tokenService.init(window.web3);
+      this.setState({ web3: window.web3, betsService, tokenService });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert('Failed to load web3, accounts, or contract. Check console for details.');
@@ -32,7 +36,7 @@ export default class App extends Component {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
 
-    const { betsService } = this.state;
+    const { betsService, tokenService } = this.state;
 
     return (
       <div>
@@ -58,9 +62,12 @@ export default class App extends Component {
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
-                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
-                    Create a Bet
+                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">                    
+                    Create a bet!
                   </a>
+                </li>
+                <li className="nav-item mx-0 mx-lg-1">
+                  <TokenBalance tokenService={tokenService} />
                 </li>
               </ul>
             </div>
