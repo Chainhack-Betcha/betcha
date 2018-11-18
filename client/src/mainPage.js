@@ -10,15 +10,25 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
-import betchaDialog from './betchaDialog';
+import BetchaDialog from './BetchaDialog';
+import Chip from '@material-ui/core/Chip';
 
 
 
-const styles = {
+
+const styles = theme => ({
   button: {
     marginLeft : 20,
-  }
-}
+  },
+  appBar: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 1,
+    paddingBottom: theme.spacing.unit * 1,
+  },
+  chip: {
+    margin: theme.spacing.unit / 2,
+  },
+});
 
 class MainPage extends React.Component {
 
@@ -73,6 +83,13 @@ class MainPage extends React.Component {
             <Add/>
           </Button>
 
+          <Chip
+            label="+"
+            className={classes.chip}
+            onClick={this.handleAddClick()}
+            color="primary"
+          />
+          <BetchaDialog open={betchaDialogOpened} handleClose={this.handlebetchaDialogClose()} appBar={this}/>
       </div>
 		);
   }

@@ -13,6 +13,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import Avatar from '@material-ui/core/Avatar';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+
 
 const styles = theme => ({
   subtitle: {
@@ -43,21 +49,61 @@ const styles = theme => ({
   },
 });
 
-function handleAdd(tcrBar) {
-  return () => {
-    tcrBar.setState((state) => {
-      const chipData = [...state.chipData];
-      chipData.push({
-        key: Math.floor(Math.random() * 10000),
-      });
-      return { chipData };
-    });
-    tcrBar.setState({ tcrDialogOpened: false });
-  };
-}
+class BetchaDialog extends React.Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: [],
+      items: [],
+      stakes:[],
+    };
+  }
+  handleToggle = value => () => {
+    const { checked } = this.state; 
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
 
-const betchaDialog = (props) => {
-  const { classes, open, handleClose, tcrBar } = props;
+    if (currentIndex == -1) {
+      newChecked.push(value);
+    } else { 
+      newChecked.splice(currentIndex, -1);
+    }
+
+    this.setState({
+      checked: newChecked,
+    });
+  };
+
+  addItem(event) {
+    const { items: currentItems } = this.state;
+    const { betchaConnection } = this.props;
+    const nameTextbox = event.target.previousElementSibling;
+    const urlTextbox = nameTextbox.previousElementSibling;
+
+      currentItems.push(nameTextbox.value);
+      nameTextbox.value = '';
+
+      this.setState({
+        items: currentItems,
+      });
+  }
+
+  addStake(event) {
+     const { stakes: currentStakes } = this.state;
+    const { betchaConnection } = this.props;
+    const nameTextbox = event.target.previousElementSibling;
+    const urlTextbox = nameTextbox.previousElementSibling;
+
+      currentStakes.push(nameTextbox.value);
+      nameTextbox.value = '';
+
+      this.setState({
+        stakes: currentStakes,
+      });
+  }
+
+  render() {
+    const { classes, open, handleClose, appBar } = this.props;
 
   return (
     <Dialog
@@ -68,46 +114,75 @@ const betchaDialog = (props) => {
       fullWidth
     >
       <DialogTitle id="form-dialog-title">
-        Bet On It
+        Let's Make a Bet                                                                                                                                          
       </DialogTitle>
       <DialogContent>
         <div>
           <div className={classes.section}>
             <AssignmentIcon className={classes.subtitleIcon} />
             <Typography variant="subtitle1" className={classes.subtitle}>
-              Submission
+              What are we betting on?
             </Typography>
           </div>
-          <ListItem className={classes.ListItem}>
-            <ListItemText className={classes.listItemText}>
-              Minimum Deposit
-            </ListItemText>
-            <div>
-            </div>
-          </ListItem>
+          <TextField
+            id="outlined-full-width"
+            style={{ margin: 8 }}
+            placeholder="Let's Make a Bet"
+            fullWidth
+            multiline
+            margin="normal"
+            variant="outlined"
+            InputLabelProps={{
+            shrink: true,
+          }}
+          />
         </div>
         <div>
           <div className={classes.section}>
             <AssignmentTurnedInIcon className={classes.subtitleIcon} />
-            <Typography variant="subtitle1" className={classes.subtitle} />
+            <Typography variant="subtitle1" className={classes.subtitle}>
+            Outcomes
+            </Typography>
           </div>
-          <ListItem className={classes.ListItem}>
-            <ListItemText className={classes.listItemText}>
-             Each maintainer holds equal voting rights.
-             Curation
-              {' '}
-            </ListItemText>
-            <Checkbox
-              defaultChecked
-            />
-          </ListItem>
+          <div className={classes.root}>
+            <List>
+              {this.state.items.map(value => ( // eslint-disable-line react/destructuring-assignment
+                <ListItem key={value} dense button>
+                  <ListItemText primary={`${value}`} />
+                </ListItem>
+              ))}
+            </List>
+            <nav className="nav-add">
+              <input type="text" id="nameinput" placeholder="Outcome" />
+              <button type="submit" id="new-item" onClick={this.addItem.bind(this)}>
+              Add
+              </button>
+            </nav>
+          </div>
         </div>
         <div>
           <div className={classes.section}>
             <PageviewIcon className={classes.subtitleIcon} />
             <Typography variant="subtitle1" className={classes.subtitle}>
-              Subscription
+              Stake Amount
             </Typography>
+          </div>
+          <div className={classes.root}>
+            <List>
+              {this.state.stakes.map(value => ( // eslint-disable-line react/destructuring-assignment
+                <ListItem key={value} dense button>
+                  <ListItemText primary={`${value}`} />
+                </ListItem>
+              ))}
+            </List>
+            <nav className="nav-add">
+              <input type="text" id="nameinput" placeholder="Outcome" InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }} />
+              <button type="submit" id="new-item" onClick={this.addStake.bind(this)}>
+              Add
+              </button>
+            </nav>
           </div>
           <ListItem className={classes.ListItem}>
             <ListItemText className={classes.listItemText}>
@@ -123,24 +198,26 @@ const betchaDialog = (props) => {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleAdd(tcrBar)} color="primary">
+        <Button color="primary">
           Add
         </Button>
       </DialogActions>
     </Dialog>
-  );
-};
+    );
+  }
+}
 
-betchaDialog.propTypes = {
+BetchaDialog.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func,
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  tcrBar: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  appBar: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  betchaConnection: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+
 };
 
-betchaDialog.defaultProps = {
+BetchaDialog.defaultProps = {
   open: false,
-  handleClose: () => {},
 };
 
-export default withStyles(styles)(betchaDialog);
+export default withStyles(styles)(BetchaDialog);
