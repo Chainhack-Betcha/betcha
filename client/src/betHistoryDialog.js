@@ -56,13 +56,13 @@ class BetHistoryDialog extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, open } = this.props;
 
     return (
       <div>
         <Button variant="outlined" color="primary" onClick={this.handleClickOpen('paper')}>Details</Button>
         <Dialog
-          open={this.state.open}
+          open={open}
           onClose={this.handleClose}
           scroll={this.state.scroll}
           aria-labelledby="bet-history"

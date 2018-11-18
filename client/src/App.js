@@ -3,12 +3,25 @@ import getWeb3 from './utils/getWeb3';
 import NewBetSection from './NewBetSection';
 import TokenBalance from './components/TokenBalance';
 import BetsService from './api/BetsService';
+import Button from '@material-ui/core/Button';
+import BetHistoryDialog from './betHistoryDialog';
+import PopUpCard1 from './popBetCardOne';
+import PopUpCard2 from './popBetCardTwo';
+import PopUpCard3 from './popBetCardThree';
+import PopUpCard4 from './popBetCardFour';
+import PopUpCard5 from './popBetCardFive';
+import PopUpCard6 from './popBetCardSix';
 import TokenService from './api/TokenService';
+
 
 import './App.css';
 
+
+
+ const opens = ["openHistory1", "openHistory2", "openHistory3", "openHistory4", "openHistory5", "openHistory6"];
+
 export default class App extends Component {
-  state = { web3: null, betsService: null, tokenService: null };
+  state = { web3: null, betsService: null, tokenService: null, allBets: [] };
 
   componentDidMount = async () => {
     try {
@@ -18,7 +31,8 @@ export default class App extends Component {
       await betsService.init(window.web3);
       const tokenService = new TokenService();
       await tokenService.init(window.web3);
-      this.setState({ web3: window.web3, betsService, tokenService });
+      const allBets = await betsService.getAllBets();
+      this.setState({ web3: window.web3, betsService, tokenService, allBets });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert('Failed to load web3, accounts, or contract. Check console for details.');
@@ -29,17 +43,36 @@ export default class App extends Component {
   onCreateBet = () => (bet) => {
     console.log('Create bet');
     console.log(bet);
+  };
+
+  openHistory = () => (index) => {
+
+    if (index == 1) {
+    this.setState({openHistory1: true});
   }
+
+
+
+   
+  };
+
   
   render() {
+
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
 
-    const { betsService, tokenService } = this.state;
+
+
+    const { betsService, openHistory1, openHistory2, openHistory3, openHistory4, openHistory5, openHistory6, tokenService } = this.state;
+
+
+
 
     return (
       <div>
+        <PopUpCard1 open={openHistory1}/>
         <nav className="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
           <div className="container">
             <a className="navbar-brand js-scroll-trigger" href="#page-top">
@@ -118,6 +151,75 @@ export default class App extends Component {
             </div>
           </div>
         </section>
+
+
+        <section className="bg-primary text-white mb-0" id="portfolio">
+          <div className="container">
+            <h2 className="text-center text-uppercase text-white">Portfolio</h2>
+            <hr className="star-light mb-5" />
+            <div className="row">
+              <div className="col-md-6 col-lg-4">
+              <button type="button" id="modal1">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-1" onClick={this.openHistory(1)}>
+                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i className="fas fa-search-plus fa-3x" />
+                    </div>
+                  </div>
+                  <img className="img-fluid" src="img/portfolio/cabin.png" alt="" />
+                </a>
+   
+
+              </button>
+              </div>
+              <div className="col-md-6 col-lg-4">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-2" onClick={this.openHistory(2)}>
+                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i className="fas fa-search-plus fa-3x" />
+                    </div>
+                  </div>
+                  <img className="img-fluid" src="img/portfolio/cake.png" alt="" />
+                </a>
+              </div>
+              <div className="col-md-6 col-lg-4">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-3" onClick={this.openHistory(3)}>
+                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i className="fas fa-search-plus fa-3x" />
+                    </div>
+                  </div>
+                  <img className="img-fluid" src="img/portfolio/circus.png" alt="" />
+                </a>
+              </div>
+              <div className="col-md-6 col-lg-4">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-4" onClick={this.openHistory(4)}>
+                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i className="fas fa-search-plus fa-3x" />
+                    </div>
+                  </div>
+                  <img className="img-fluid" src="img/portfolio/game.png" alt="" />
+                </a>
+              </div>
+              <div className="col-md-6 col-lg-4">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-5" onClick={this.openHistory(5)}>
+                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i className="fas fa-search-plus fa-3x" />
+                    </div>
+                  </div>
+                  <img className="img-fluid" src="img/portfolio/safe.png" alt="" />
+                </a>
+              </div>
+              <div className="col-md-6 col-lg-4">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-6" onClick={this.openHistory(6)}>
+                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i className="fas fa-search-plus fa-3x" />
+                    </div>
+                  </div>
+                  <img className="img-fluid" src="img/portfolio/submarine.png" alt="" />
 
     <section class="bg-primary text-white mb-0" id="portfolio">
       <div class="container" id="ongoing">
