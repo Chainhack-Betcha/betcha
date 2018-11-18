@@ -10,7 +10,8 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
-<<<<<<< HEAD
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid'; 
 import BetchaDialog from './BetchaDialog';
 import Chip from '@material-ui/core/Chip';
 
@@ -18,25 +19,6 @@ import Chip from '@material-ui/core/Chip';
 
 
 const styles = theme => ({
-  button: {
-    marginLeft : 20,
-  },
-  appBar: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 1,
-    paddingBottom: theme.spacing.unit * 1,
-  },
-  chip: {
-    margin: theme.spacing.unit / 2,
-  },
-});
-=======
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import betchaDialog from './betchaDialog';
-
-
-const styles = {
   gridContainer : {
     flexGrow: 1,
     marginLeft: 15,
@@ -59,9 +41,16 @@ const styles = {
   },
   card : {
     display : 'inline',
-  }
-}
->>>>>>> 0587efb67c2f16a558f1aaf8e3535e6899e6d0c1
+  },
+  appBar: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 1,
+    paddingBottom: theme.spacing.unit * 1,
+  },
+  chip: {
+    margin: theme.spacing.unit / 2,
+  },
+});
 
 class MainPage extends React.Component {
 
@@ -117,6 +106,7 @@ class MainPage extends React.Component {
           <div className={classes.sectionHoldingButton}>
           <Button size="small" variant="fab" onClick={this.handleClick.bind(this)} className={classes.button}>
             <Add />
+            <BetchaDialog open={betchaDialogOpened} handleClose={this.handlebetchaDialogClose()} appBar={this}/>
           </Button>
           </div>
           </Grid>

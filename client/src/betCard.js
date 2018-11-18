@@ -41,7 +41,7 @@ const BaseCard = (prop) =>  {
     		<Card className={classes.card}>
     			<CardContent>
     				<Typography className={classes.agent}>
-    					hahahhaa
+    					
     				</Typography>
     				<form className={classes.container} noValidate autoComplete="off">
           </form>

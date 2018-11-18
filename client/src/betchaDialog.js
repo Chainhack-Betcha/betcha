@@ -53,11 +53,17 @@ class BetchaDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      betcontent: '',
       checked: [],
       items: [],
-      stakes:[],
     };
   }
+
+  handleBetContentChange = () => (event) => {
+    const betcontent = event.target.value;
+    this.setState({ betcontent });
+  }
+
   handleToggle = value => () => {
     const { checked } = this.state; 
     const currentIndex = checked.indexOf(value);
@@ -74,7 +80,7 @@ class BetchaDialog extends React.Component {
     });
   };
 
-  addItem(event) {
+   addItem(event) {
     const { items: currentItems } = this.state;
     const { betchaConnection } = this.props;
     const nameTextbox = event.target.previousElementSibling;
@@ -103,7 +109,10 @@ class BetchaDialog extends React.Component {
   }
 
   render() {
-    const { classes, open, handleClose, appBar } = this.props;
+  const { classes, open, handleClose, appBar } = this.props;
+  const { 
+    betcontent,
+  } = this.state;
 
   return (
     <Dialog
@@ -135,6 +144,7 @@ class BetchaDialog extends React.Component {
             InputLabelProps={{
             shrink: true,
           }}
+          onChange = {this.handleBetContentChange()}
           />
         </div>
         <div>
@@ -160,39 +170,6 @@ class BetchaDialog extends React.Component {
             </nav>
           </div>
         </div>
-        <div>
-          <div className={classes.section}>
-            <PageviewIcon className={classes.subtitleIcon} />
-            <Typography variant="subtitle1" className={classes.subtitle}>
-              Stake Amount
-            </Typography>
-          </div>
-          <div className={classes.root}>
-            <List>
-              {this.state.stakes.map(value => ( // eslint-disable-line react/destructuring-assignment
-                <ListItem key={value} dense button>
-                  <ListItemText primary={`${value}`} />
-                </ListItem>
-              ))}
-            </List>
-            <nav className="nav-add">
-              <input type="text" id="nameinput" placeholder="Outcome" InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          }} />
-              <button type="submit" id="new-item" onClick={this.addStake.bind(this)}>
-              Add
-              </button>
-            </nav>
-          </div>
-          <ListItem className={classes.ListItem}>
-            <ListItemText className={classes.listItemText}>
-             Consumer pays to subscribe to the list.
-              Curation
-              {' '}
-            </ListItemText>
-            <Checkbox />
-          </ListItem>
-        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
@@ -209,6 +186,8 @@ class BetchaDialog extends React.Component {
 
 BetchaDialog.propTypes = {
   open: PropTypes.bool,
+  handleCancel: PropTypes.func,
+  handleCreate: PropTypes.func,
   handleClose: PropTypes.func,
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   appBar: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
@@ -218,6 +197,7 @@ BetchaDialog.propTypes = {
 
 BetchaDialog.defaultProps = {
   open: false,
+  handleCancel: () => {},
 };
 
 export default withStyles(styles)(BetchaDialog);
