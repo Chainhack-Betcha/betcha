@@ -59,14 +59,14 @@ export default class App extends Component {
                     About
                   </a>
                 </li>
-                <li className="nav-item mx-0 mx-lg-1">
-                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#ongoingBets">
-                    On-going Bets
+                 <li className="nav-item mx-0 mx-lg-1">
+                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
+                    Create a bet!
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
-                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
-                    Create a bet!
+                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#ongoingBets">
+                    On-going Bets
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
@@ -112,8 +112,7 @@ export default class App extends Component {
               </div>
             </div>
             <div className="text-center mt-4">
-              <a className="btn btn-xl btn-outline-light" href="#">
-                <i className="fas fa-download mr-2" />
+              <a className="btn btn-xl btn-outline-light" href="#contact">
                 Let&quot;s Start
               </a>
             </div>
