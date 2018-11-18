@@ -60,8 +60,8 @@ export default class App extends Component {
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
-                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">
-                    Portfolio
+                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#ongoingBets">
+                    On-going Bets
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
@@ -120,9 +120,9 @@ export default class App extends Component {
           </div>
         </section>
 
-        <section className="bg-primary text-white mb-0" id="portfolio">
+        <section className="bg-primary text-white mb-0">
           <div className="container">
-            <h2 className="text-center text-uppercase text-white">Portfolio</h2>
+            <h2 className="text-center text-uppercase text-white">On-Going Bets</h2>
             <hr className="star-light mb-5" />
             <div className="row">
               <div className="col-md-6 col-lg-4">
