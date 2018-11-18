@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import getWeb3 from './utils/getWeb3';
 import NewBetSection from './NewBetSection';
+import TokenBalance from './components/TokenBalance';
 import BetsService from './api/BetsService';
+<<<<<<< HEAD
 import Button from '@material-ui/core/Button';
 import BetHistoryDialog from './betHistoryDialog';
 import PopUpCard1 from './popBetCardOne';
@@ -10,6 +12,8 @@ import PopUpCard3 from './popBetCardThree';
 import PopUpCard4 from './popBetCardFour';
 import PopUpCard5 from './popBetCardFive';
 import PopUpCard6 from './popBetCardSix';
+import TokenService from './api/TokenService';
+
 
 import './App.css';
 
@@ -18,6 +22,7 @@ import './App.css';
  const opens = ["openHistory1", "openHistory2", "openHistory3", "openHistory4", "openHistory5", "openHistory6"];
 
 export default class App extends Component {
+
   state = { web3: null, 
             betsService: null , 
             openHistory1: false,
@@ -27,6 +32,7 @@ export default class App extends Component {
             openHistory5: false,
             openHistory6: false
           };
+  state = { web3: null, betsService: null, tokenService: null };
 
   componentDidMount = async () => {
     try {
@@ -34,7 +40,9 @@ export default class App extends Component {
       await getWeb3();
       const betsService = new BetsService();
       await betsService.init(window.web3);
-      this.setState({ web3: window.web3, betsService });
+      const tokenService = new TokenService();
+      await tokenService.init(window.web3);
+      this.setState({ web3: window.web3, betsService, tokenService });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert('Failed to load web3, accounts, or contract. Check console for details.');
@@ -54,16 +62,23 @@ export default class App extends Component {
   }
 
 
+
    
   };
 
-  render = () => {
+  
+  render() {
+
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
 
 
-    const { betsService, openHistory1, openHistory2, openHistory3, openHistory4, openHistory5, openHistory6 } = this.state;
+
+    const { betsService, openHistory1, openHistory2, openHistory3, openHistory4, openHistory5, openHistory6, tokenService } = this.state;
+
+
+
 
     return (
       <div>
@@ -86,13 +101,16 @@ export default class App extends Component {
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
                   <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">
-                    Portfolio
+                    On-going Bets
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
-                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
-                    Contact
+                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">                    
+                    Create a bet!
                   </a>
+                </li>
+                <li className="nav-item mx-0 mx-lg-1">
+                  <TokenBalance tokenService={tokenService} />
                 </li>
               </ul>
             </div>
@@ -107,7 +125,7 @@ export default class App extends Component {
             </h1>
             <hr className="star-light" />
             <h2 className="font-weight-light mb-0">
-              Some corny one-liner here.
+              Betcha it's the best betting social platform there is!
             </h2>
           </div>
         </header>
@@ -134,13 +152,16 @@ export default class App extends Component {
               </div>
             </div>
             <div className="text-center mt-4">
-              <a className="btn btn-xl btn-outline-light" href="#">
-                <i className="fas fa-download mr-2" />
-                Let&quot;s Start
+              <a className="btn btn-xl btn-outline-light" href="#ongoing">
+                View current bets
+              </a>
+              <a className="btn btn-xl btn-outline-light" href="#contact">
+                Create a bet
               </a>
             </div>
           </div>
         </section>
+
 
         <section className="bg-primary text-white mb-0" id="portfolio">
           <div className="container">
@@ -209,67 +230,82 @@ export default class App extends Component {
                     </div>
                   </div>
                   <img className="img-fluid" src="img/portfolio/submarine.png" alt="" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
 
+    <section class="bg-primary text-white mb-0" id="portfolio">
+      <div class="container" id="ongoing">
+        <h2 class="text-center text-uppercase text-white">On-going Bets</h2>
+        <hr class="star-light mb-5" />
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x">
+                  </i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/cabin.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/cake.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/circus.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/game.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/safe.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/submarine.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
         <section id="contact">
           <NewBetSection betsService={betsService} onCreateBet={this.onCreateBet()} />
         </section>
 
-        <footer className="footer text-center">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-4 mb-5 mb-lg-0">
-                <h4 className="text-uppercase mb-4">Location</h4>
-                <p className="lead mb-0">
-                  2215 John Daniel Drive
-                  <br />
-                  Clark, MO 65243
-                </p>
-              </div>
-              <div className="col-md-4 mb-5 mb-lg-0">
-                <h4 className="text-uppercase mb-4">Around the Web</h4>
-                <ul className="list-inline mb-0">
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-facebook-f" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-google-plus-g" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-twitter" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-linkedin-in" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-dribbble" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-md-4">
-                <h4 className="text-uppercase mb-4">About Freelancer</h4>
-                <p className="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-                  <a href="http://startbootstrap.com">Start Bootstrap</a>.
-                </p>
-              </div>
-            </div>
-          </div>
-        </footer>
+        
 
         <div className="copyright py-4 text-center text-white">
           <div className="container">

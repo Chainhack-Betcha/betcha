@@ -1,22 +1,6 @@
 pragma solidity ^0.4.24;
 
-contract owned {
-    address owner;
-
-    constructor() public {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner {
-        require(
-            msg.sender == owner,
-            "Only owner can call this function."
-        );
-        _;
-    }
-}
-
-contract BettyToken is owned {
+contract BettyToken {
 
     uint256 constant MAX_UINT256 = 2**256 - 1;
 
@@ -75,15 +59,15 @@ contract BettyToken is owned {
         return balances[msg.sender];
     }
 
-    function distributeToken(address[] addresses, uint256 _value) external onlyOwner {
+    function distributeToken(address[] addresses, uint256 _value) external {
         uint total = _value * addresses.length;
         require(total/_value == addresses.length); // Overflow check
-        require(balances[owner] >= total); // Underflow check
-        balances[owner] -= total;
+        require(balances[msg.sender] >= total); // Underflow check
+        balances[msg.sender] -= total;
         for (uint i = 0; i < addresses.length; i++) {
            balances[addresses[i]] += _value;
            require(balances[addresses[i]] >= _value); // Overflow check
-           emit Transfer(owner, addresses[i], _value);
+           emit Transfer(msg.sender, addresses[i], _value);
         }
     }
 
