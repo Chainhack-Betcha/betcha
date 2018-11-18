@@ -26,7 +26,7 @@ export default class App extends Component {
     console.log('Create bet');
     console.log(bet);
   }
-
+  
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -54,12 +54,12 @@ export default class App extends Component {
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
                   <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">
-                    Portfolio
+                    On-going Bets
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
                   <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
-                    Contact
+                    Create a Bet
                   </a>
                 </li>
               </ul>
@@ -110,75 +110,75 @@ export default class App extends Component {
           </div>
         </section>
 
-        <section className="bg-primary text-white mb-0" id="portfolio">
-          <div className="container">
-            <h2 className="text-center text-uppercase text-white">Portfolio</h2>
-            <hr className="star-light mb-5" />
-            <div className="row">
-              <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                      <i className="fas fa-search-plus fa-3x" />
-                    </div>
-                  </div>
-                  <img className="img-fluid" src="img/portfolio/cabin.png" alt="" />
-                </a>
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+        <hr class="star-dark mb-5" />
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x">
+                  </i>
+                </div>
               </div>
-              <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
-                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                      <i className="fas fa-search-plus fa-3x" />
-                    </div>
-                  </div>
-                  <img className="img-fluid" src="img/portfolio/cake.png" alt="" />
-                </a>
-              </div>
-              <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
-                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                      <i className="fas fa-search-plus fa-3x" />
-                    </div>
-                  </div>
-                  <img className="img-fluid" src="img/portfolio/circus.png" alt="" />
-                </a>
-              </div>
-              <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
-                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                      <i className="fas fa-search-plus fa-3x" />
-                    </div>
-                  </div>
-                  <img className="img-fluid" src="img/portfolio/game.png" alt="" />
-                </a>
-              </div>
-              <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
-                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                      <i className="fas fa-search-plus fa-3x" />
-                    </div>
-                  </div>
-                  <img className="img-fluid" src="img/portfolio/safe.png" alt="" />
-                </a>
-              </div>
-              <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
-                  <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                    <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                      <i className="fas fa-search-plus fa-3x" />
-                    </div>
-                  </div>
-                  <img className="img-fluid" src="img/portfolio/submarine.png" alt="" />
-                </a>
-              </div>
-            </div>
+              <img class="img-fluid" src="img/portfolio/cabin.png" alt="" />
+            </a>
           </div>
-        </section>
-
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/cake.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/circus.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/game.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/safe.png" alt="" />
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/portfolio/submarine.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
         <section id="contact">
           <NewBetSection betsService={betsService} onCreateBet={this.onCreateBet()} />
