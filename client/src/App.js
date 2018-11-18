@@ -4,6 +4,8 @@ import NewBetSection from './NewBetSection';
 import TokenBalance from './components/TokenBalance';
 import BetsService from './api/BetsService';
 import TokenService from './api/TokenService';
+import BettingDiv from './components/BettingDiv';
+import RevealDiv from './components/RevealDiv';
 
 import './App.css';
 
@@ -37,7 +39,7 @@ export default class App extends Component {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
 
-    const { betsService, tokenService } = this.state;
+    const { allBets, betsService, tokenService } = this.state;
 
     return (
       <div>
@@ -192,56 +194,16 @@ export default class App extends Component {
           <NewBetSection betsService={betsService} onCreateBet={this.onCreateBet()} />
         </section>
 
-        <footer className="footer text-center">
-          <div className="container">
+        <section className=" text-center">
+          <div className="container" id="ongoingBets">
             <div className="row">
-              <div className="col-md-4 mb-5 mb-lg-0">
-                <h4 className="text-uppercase mb-4">Location</h4>
-                <p className="lead mb-0">
-                  2215 John Daniel Drive
-                  <br />
-                  Clark, MO 65243
-                </p>
-              </div>
-              <div className="col-md-4 mb-5 mb-lg-0">
-                <h4 className="text-uppercase mb-4">Around the Web</h4>
-                <ul className="list-inline mb-0">
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-facebook-f" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-google-plus-g" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-twitter" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-linkedin-in" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item">
-                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                      <i className="fab fa-fw fa-dribbble" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-md-4">
-                <h4 className="text-uppercase mb-4">About Freelancer</h4>
-                <p className="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-                  <a href="http://startbootstrap.com">Start Bootstrap</a>.
-                </p>
-              </div>
+              <BettingDiv betsService={betsService} bet={allBets[0]} />
+            </div>
+            <div className="row">
+              <RevealDiv betsService={betsService} bet={allBets[0]} />
             </div>
           </div>
-        </footer>
+        </section>
 
         <div className="copyright py-4 text-center text-white">
           <div className="container">
