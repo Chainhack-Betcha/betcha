@@ -10,6 +10,7 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
+<<<<<<< HEAD
 import BetchaDialog from './BetchaDialog';
 import Chip from '@material-ui/core/Chip';
 
@@ -29,12 +30,44 @@ const styles = theme => ({
     margin: theme.spacing.unit / 2,
   },
 });
+=======
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import betchaDialog from './betchaDialog';
+
+
+const styles = {
+  gridContainer : {
+    flexGrow: 1,
+    marginLeft: 15,
+    paddingLeft: 20,
+  },
+  button: {
+    display: 'inline',
+    marginTop: 20,
+  },
+  sectionHoldingCards: {
+    paddingLeft: 30,
+    width : '90%',
+
+  },
+  sectionHoldingButton: {
+    paddingLeft: 5,
+    paddingRight: 10,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
+  card : {
+    display : 'inline',
+  }
+}
+>>>>>>> 0587efb67c2f16a558f1aaf8e3535e6899e6d0c1
 
 class MainPage extends React.Component {
 
   constructor(props) {
     super(props);
-    const betCards = [];
+    const betCards = ['haha'];
 
   this.state = {
     betCards,
@@ -73,15 +106,21 @@ class MainPage extends React.Component {
           </Typography>
           </Toolbar>
           </AppBar>
-          <div>
+          <Grid container className={classes.gridContainer}>
+          <div className={classes.sectionHoldingCards}>
             {betCards.map((bet) => (
-              <BetCard />
+              <Grid item xs={17}>
+              <BetCard className={classes.card}/>
+              </Grid>
             ))}
           </div>
-
+          <div className={classes.sectionHoldingButton}>
           <Button size="small" variant="fab" onClick={this.handleClick.bind(this)} className={classes.button}>
-            <Add/>
+            <Add />
           </Button>
+          </div>
+          </Grid>
+
 
           <Chip
             label="+"
