@@ -3,11 +3,12 @@ import "./token/BettyToken.sol";
 
 contract Bets {
 
-    event Creation(uint indexed betId, bytes32[] outcomes, address judge);
+    event Creation(uint indexed betId, string description, bytes32[] outcomes, address judge);
     event BetPlaced(uint indexed betId, address indexed participant, uint _outcomeIndex, uint _stakeAmount);
 
     struct Bet {
         uint id;
+        string description;
         bytes32[] outcomes;
         mapping (address => Betting) participantsBets;
         address judge;
@@ -33,14 +34,15 @@ contract Bets {
         return nextBet++;
     }
 
-    function create(bytes32[] _outcomes) external {
+    function create(string _description, bytes32[] _outcomes) external {
         uint betId = nextBetId();
         Bet storage bet = bets[betId];
         bet.id = betId;
+        bet.description = _description;
         bet.outcomes = _outcomes;
         bet.judge = msg.sender;
 
-        emit Creation(betId, _outcomes, bet.judge);
+        emit Creation(betId, _description, _outcomes, bet.judge);
     }
 
     function hasPlacedBet() view external returns (bool betPlaced) {

@@ -25,7 +25,7 @@ export default class TokenBalance extends React.Component {
       '0x6A985E418e2E3126979Ca4579E8F17c45748EA97',
       '0x78973B4b87e03f7804ec0BbB89F0665F1CFd63FE',
       '0x4191A462061C2aB1D2D12b963Dfc097D4A02Cd6C',
-    ]
+    ];
     await tokenService.distributeTokens(addresses, 500);
   }
 

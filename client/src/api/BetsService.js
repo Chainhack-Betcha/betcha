@@ -20,6 +20,7 @@ export default class BetsService {
         } else {
           const allBets = events.map(({ args }) => ({
             betId: args.betId,
+            description: args.description,
             outcomes: args.outcomes.map(o => window.web3.toAscii(o).trim()),
             judge: args.judge,
           }));
@@ -33,9 +34,9 @@ export default class BetsService {
    * Create a new bet (the current user will become the judge)
    * @param {string[]} outcomes All possible outcomes of the bet
    */
-  async create(outcomes) {
+  async create(description, outcomes) {
     return new Promise((resolve, reject) => {
-      this.bets.create(outcomes.map(window.web3.toHex), (error, tx) => {
+      this.bets.create(description, outcomes.map(window.web3.toHex), (error, tx) => {
         if (error) {
           reject(error);
         } else {
@@ -62,7 +63,14 @@ export default class BetsService {
    * @param {number} betId ID of the bet to reveal
    */
   async hasPlacedBet(betId) {
-    return this.bets.hasPlacedBet(betId);
+    return new Promise((resolve, reject) => {
+      this.bets.hasPlacedBet(betId, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
   }
 
   /**
@@ -72,7 +80,14 @@ export default class BetsService {
    * @param {number} stakeAmount Amount ot tokens to bet.
    */
   async betOn(betId, outcomeIndex, stakeAmount) {
-    this.bets.betOn(betId, outcomeIndex, stakeAmount);
+    return new Promise((resolve, reject) => {
+      this.bets.betOn(betId, outcomeIndex, stakeAmount, (error, tx) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(tx);
+      });
+    });
   }
 
   /**
@@ -82,10 +97,32 @@ export default class BetsService {
                                   create the bet.
    */
   async revealOutcome(betId, outcomeIndex) {
-    const judge = await this.bets.getJudgeOf(betId);
+    const judge = await this.getJudgeOf(betId);
     if (this.web3.eth.defaultAccount !== judge) {
       throw new Error('Only the judge can reveal outcome');
     }
-    this.bets.revealOutcome(betId, outcomeIndex);
+    return new Promise((resolve, reject) => {
+      this.bets.revealOutcome(betId, outcomeIndex, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
+  }
+
+  async getJudgeOf(betId) {
+    return new Promise((resolve, reject) => {
+      this.bets.getJudgeOf(betId, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
+  }
+
+  async hasRevealed(betId) {
+    return false; // i <3 hardcode
   }
 }

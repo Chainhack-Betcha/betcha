@@ -3,7 +3,6 @@ import getWeb3 from './utils/getWeb3';
 import NewBetSection from './NewBetSection';
 import TokenBalance from './components/TokenBalance';
 import BetsService from './api/BetsService';
-<<<<<<< HEAD
 import Button from '@material-ui/core/Button';
 import BetHistoryDialog from './betHistoryDialog';
 import PopUpCard1 from './popBetCardOne';
@@ -22,17 +21,7 @@ import './App.css';
  const opens = ["openHistory1", "openHistory2", "openHistory3", "openHistory4", "openHistory5", "openHistory6"];
 
 export default class App extends Component {
-
-  state = { web3: null, 
-            betsService: null , 
-            openHistory1: false,
-            openHistory2: false,
-            openHistory3: false,
-            openHistory4: false,
-            openHistory5: false,
-            openHistory6: false
-          };
-  state = { web3: null, betsService: null, tokenService: null };
+  state = { web3: null, betsService: null, tokenService: null, allBets: [] };
 
   componentDidMount = async () => {
     try {
@@ -42,7 +31,8 @@ export default class App extends Component {
       await betsService.init(window.web3);
       const tokenService = new TokenService();
       await tokenService.init(window.web3);
-      this.setState({ web3: window.web3, betsService, tokenService });
+      const allBets = await betsService.getAllBets();
+      this.setState({ web3: window.web3, betsService, tokenService, allBets });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert('Failed to load web3, accounts, or contract. Check console for details.');
