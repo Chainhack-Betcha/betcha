@@ -4,6 +4,7 @@ import "./token/BettyToken.sol";
 contract Bets {
 
     event Creation(uint indexed betId);
+    event BetPlaced(uint indexed betId, address indexed participant, uint _outcomeIndex, uint _stakeAmount);
 
     struct Bet {
         uint id;
@@ -32,7 +33,7 @@ contract Bets {
         return nextBet++;
     }
 
-    function create(bytes32[] _outcomes) external returns (uint) {
+    function create(bytes32[] _outcomes) external {
         uint betId = nextBetId();
         Bet storage bet = bets[betId];
         bet.id = betId;
@@ -40,6 +41,15 @@ contract Bets {
         bet.judge = msg.sender;
 
         emit Creation(betId);
+    }
+
+    function hasPlacedBet() view external returns (bool betPlaced) {
+        for (uint i = 0; i < participants.length; i++) {
+            if (participants[i] == msg.sender) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function betOn(uint _betId, uint _outcomeIndex, uint _stakeAmount) external {
@@ -55,6 +65,8 @@ contract Bets {
         participants.push(msg.sender);
 
         token.transferFrom(msg.sender, this, _stakeAmount);
+
+        emit BetPlaced(_betId, msg.sender, _outcomeIndex, _stakeAmount);
     }
 
     function revealOutcome(uint _betId, uint _outcomeIndex) internal {
