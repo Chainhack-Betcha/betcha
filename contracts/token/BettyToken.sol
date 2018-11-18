@@ -55,6 +55,10 @@ contract BettyToken {
         return balances[_owner];
     }
 
+    function currentAccountBalance() view public returns (uint balance) {
+        return balances[msg.sender];
+    }
+
     // IMPORTANT - Note that approve isn't used at this moment.
     function approve(address _spender, uint256 _value) public returns (bool success) {
         allowed[msg.sender][_spender] = _value;
