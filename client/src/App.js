@@ -209,7 +209,7 @@ export default class App extends Component {
           </a>
         </div>
 
-        <div className="portfolio-modal mfp-hide" id="portfolio-modal-1">
+        <div className="portfolio-modal" id="portfolio-modal-1">
           <div className="portfolio-modal-dialog bg-white">
             <a className="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
               <i className="fa fa-3x fa-times" />
