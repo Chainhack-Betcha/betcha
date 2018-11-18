@@ -3,7 +3,8 @@ import "./token/BettyToken.sol";
 
 contract Bets {
 
-    event Creation(uint indexed betId);
+    event Creation(uint indexed betId, bytes32[] outcomes, address judge);
+    event BetPlaced(uint indexed betId, address indexed participant, uint _outcomeIndex, uint _stakeAmount);
 
     struct Bet {
         uint id;
@@ -32,20 +33,29 @@ contract Bets {
         return nextBet++;
     }
 
-    function create(bytes32[] _outcomes) external returns (uint) {
+    function create(bytes32[] _outcomes) external {
         uint betId = nextBetId();
         Bet storage bet = bets[betId];
         bet.id = betId;
         bet.outcomes = _outcomes;
         bet.judge = msg.sender;
 
-        emit Creation(betId);
+        emit Creation(betId, _outcomes, bet.judge);
+    }
+
+    function hasPlacedBet() view external returns (bool betPlaced) {
+        for (uint i = 0; i < participants.length; i++) {
+            if (participants[i] == msg.sender) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function betOn(uint _betId, uint _outcomeIndex, uint _stakeAmount) external {
         Bet storage bet = bets[_betId];
 
-        require(msg.sender == bet.judge, "Judges cannot participate in their bets");
+        require(msg.sender != bet.judge, "Judges cannot participate in their bets");
         require(_outcomeIndex < bet.outcomes.length, "Invalid outcome");
         require(token.balanceOf(msg.sender) >= _stakeAmount, "Not enough tokens");
 
@@ -55,19 +65,28 @@ contract Bets {
         participants.push(msg.sender);
 
         token.transferFrom(msg.sender, this, _stakeAmount);
+
+        emit BetPlaced(_betId, msg.sender, _outcomeIndex, _stakeAmount);
     }
 
-    function revealOutcome(uint _betId, uint _outcomeIndex) internal {
+    function getJudgeOf(uint _betId) view external returns (address judge) {
+        return bets[_betId].judge;
+    }
+
+    function revealOutcome(uint _betId, uint _outcomeIndex) external {
         Bet storage bet = bets[_betId];
 
         require(msg.sender == bet.judge, "Only the judge can reveal outcome");
         require(_outcomeIndex < bet.outcomes.length, "Invalid outcome");
 
         uint loserPot = 0;
+        uint winnerPot = 0;
         for (uint i = 0; i < participants.length; i++) {
             address participant = participants[i];
             Betting storage betting = bet.participantsBets[participant];
-            if (betting.outcomeSelected != _outcomeIndex) {
+            if (betting.outcomeSelected == _outcomeIndex) {
+                winnerPot += betting.stakeAmount;
+            } else {
                 loserPot += betting.stakeAmount;
             }
         }
@@ -76,7 +95,7 @@ contract Bets {
             participant = participants[i];
             betting = bet.participantsBets[participant];
             if (betting.outcomeSelected == _outcomeIndex) {
-                uint winnings = 0; // TODO
+                uint winnings = loserPot * betting.stakeAmount / winnerPot;
                 uint totalAmount = betting.stakeAmount + winnings;
                 token.transferFrom(this, participant, totalAmount);
             }
