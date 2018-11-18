@@ -24,11 +24,18 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "link-contracts": "run-script-os",
     "link-contracts:linux:darwin": "cd src && ln -s ../../build/contracts contracts",
-    "link-contracts:win32": "cd src && mklink \\D contracts ..\\..\\build\\contracts"
+    "link-contracts:win32": "cd src && mklink /D contracts ..\\..\\build\\contracts"
   },
   "devDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb": "17.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
     "run-script-os": "^1.0.3"
   }
 }
