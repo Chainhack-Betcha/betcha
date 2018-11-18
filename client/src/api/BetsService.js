@@ -97,10 +97,32 @@ export default class BetsService {
                                   create the bet.
    */
   async revealOutcome(betId, outcomeIndex) {
-    const judge = await this.bets.getJudgeOf(betId);
+    const judge = await this.getJudgeOf(betId);
     if (this.web3.eth.defaultAccount !== judge) {
       throw new Error('Only the judge can reveal outcome');
     }
-    this.bets.revealOutcome(betId, outcomeIndex);
+    return new Promise((resolve, reject) => {
+      this.bets.revealOutcome(betId, outcomeIndex, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
+  }
+
+  async getJudgeOf(betId) {
+    return new Promise((resolve, reject) => {
+      this.bets.getJudgeOf(betId, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
+  }
+
+  async hasRevealed(betId) {
+    return false; // i <3 hardcode
   }
 }
