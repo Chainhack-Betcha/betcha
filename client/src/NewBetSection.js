@@ -32,7 +32,7 @@ export default class NewBetSection extends React.Component {
   onCreate = () => async () => {
     const { betsService, onCreateBet } = this.props;
     const { description, outcomes } = this.state;
-    await betsService.create(outcomes);
+    await betsService.create(description, outcomes);
     onCreateBet({ description, outcomes });
   }
 
