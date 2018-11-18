@@ -3,22 +3,9 @@ import getWeb3 from './utils/getWeb3';
 import NewBetSection from './NewBetSection';
 import TokenBalance from './components/TokenBalance';
 import BetsService from './api/BetsService';
-import Button from '@material-ui/core/Button';
-import BetHistoryDialog from './betHistoryDialog';
-import PopUpCard1 from './popBetCardOne';
-import PopUpCard2 from './popBetCardTwo';
-import PopUpCard3 from './popBetCardThree';
-import PopUpCard4 from './popBetCardFour';
-import PopUpCard5 from './popBetCardFive';
-import PopUpCard6 from './popBetCardSix';
 import TokenService from './api/TokenService';
 
-
 import './App.css';
-
-
-
- const opens = ["openHistory1", "openHistory2", "openHistory3", "openHistory4", "openHistory5", "openHistory6"];
 
 export default class App extends Component {
   state = { web3: null, betsService: null, tokenService: null, allBets: [] };
@@ -43,36 +30,17 @@ export default class App extends Component {
   onCreateBet = () => (bet) => {
     console.log('Create bet');
     console.log(bet);
-  };
-
-  openHistory = () => (index) => {
-
-    if (index == 1) {
-    this.setState({openHistory1: true});
   }
 
-
-
-   
-  };
-
-  
   render() {
-
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
 
-
-
-    const { betsService, openHistory1, openHistory2, openHistory3, openHistory4, openHistory5, openHistory6, tokenService } = this.state;
-
-
-
+    const { betsService, tokenService } = this.state;
 
     return (
       <div>
-        <PopUpCard1 open={openHistory1}/>
         <nav className="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
           <div className="container">
             <a className="navbar-brand js-scroll-trigger" href="#page-top">
@@ -91,11 +59,11 @@ export default class App extends Component {
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
                   <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">
-                    On-going Bets
+                    Portfolio
                   </a>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
-                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">                    
+                  <a className="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
                     Create a bet!
                   </a>
                 </li>
@@ -115,7 +83,7 @@ export default class App extends Component {
             </h1>
             <hr className="star-light" />
             <h2 className="font-weight-light mb-0">
-              Betcha it's the best betting social platform there is!
+              Some corny one-liner here.
             </h2>
           </div>
         </header>
@@ -142,16 +110,13 @@ export default class App extends Component {
               </div>
             </div>
             <div className="text-center mt-4">
-              <a className="btn btn-xl btn-outline-light" href="#ongoing">
-                View current bets
-              </a>
-              <a className="btn btn-xl btn-outline-light" href="#contact">
-                Create a bet
+              <a className="btn btn-xl btn-outline-light" href="#">
+                <i className="fas fa-download mr-2" />
+                Let&quot;s Start
               </a>
             </div>
           </div>
         </section>
-
 
         <section className="bg-primary text-white mb-0" id="portfolio">
           <div className="container">
@@ -159,8 +124,7 @@ export default class App extends Component {
             <hr className="star-light mb-5" />
             <div className="row">
               <div className="col-md-6 col-lg-4">
-              <button type="button" id="modal1">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-1" onClick={this.openHistory(1)}>
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -168,12 +132,9 @@ export default class App extends Component {
                   </div>
                   <img className="img-fluid" src="img/portfolio/cabin.png" alt="" />
                 </a>
-   
-
-              </button>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-2" onClick={this.openHistory(2)}>
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -183,7 +144,7 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-3" onClick={this.openHistory(3)}>
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -193,7 +154,7 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-4" onClick={this.openHistory(4)}>
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -203,7 +164,7 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-5" onClick={this.openHistory(5)}>
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -213,89 +174,74 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-6" onClick={this.openHistory(6)}>
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
                     </div>
                   </div>
                   <img className="img-fluid" src="img/portfolio/submarine.png" alt="" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
 
-    <section class="bg-primary text-white mb-0" id="portfolio">
-      <div class="container" id="ongoing">
-        <h2 class="text-center text-uppercase text-white">On-going Bets</h2>
-        <hr class="star-light mb-5" />
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x">
-                  </i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/cabin.png" alt="" />
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/cake.png" alt="" />
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/circus.png" alt="" />
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/game.png" alt="" />
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/safe.png" alt="" />
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/submarine.png" alt="" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
 
         <section id="contact">
           <NewBetSection betsService={betsService} onCreateBet={this.onCreateBet()} />
         </section>
 
-        
+        <footer className="footer text-center">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4 mb-5 mb-lg-0">
+                <h4 className="text-uppercase mb-4">Location</h4>
+                <p className="lead mb-0">
+                  2215 John Daniel Drive
+                  <br />
+                  Clark, MO 65243
+                </p>
+              </div>
+              <div className="col-md-4 mb-5 mb-lg-0">
+                <h4 className="text-uppercase mb-4">Around the Web</h4>
+                <ul className="list-inline mb-0">
+                  <li className="list-inline-item">
+                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                      <i className="fab fa-fw fa-facebook-f" />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                      <i className="fab fa-fw fa-google-plus-g" />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                      <i className="fab fa-fw fa-twitter" />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                      <i className="fab fa-fw fa-linkedin-in" />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a className="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                      <i className="fab fa-fw fa-dribbble" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-md-4">
+                <h4 className="text-uppercase mb-4">About Freelancer</h4>
+                <p className="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
+                  <a href="http://startbootstrap.com">Start Bootstrap</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
 
         <div className="copyright py-4 text-center text-white">
           <div className="container">
