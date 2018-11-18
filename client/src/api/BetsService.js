@@ -63,7 +63,14 @@ export default class BetsService {
    * @param {number} betId ID of the bet to reveal
    */
   async hasPlacedBet(betId) {
-    return this.bets.hasPlacedBet(betId);
+    return new Promise((resolve, reject) => {
+      this.bets.hasPlacedBet(betId, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      });
+    });
   }
 
   /**
