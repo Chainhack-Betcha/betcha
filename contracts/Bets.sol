@@ -3,7 +3,7 @@ import "./token/BettyToken.sol";
 
 contract Bets {
 
-    event Creation(uint indexed betId);
+    event Creation(uint indexed betId, bytes32[] outcomes, address judge);
     event BetPlaced(uint indexed betId, address indexed participant, uint _outcomeIndex, uint _stakeAmount);
 
     struct Bet {
@@ -40,7 +40,7 @@ contract Bets {
         bet.outcomes = _outcomes;
         bet.judge = msg.sender;
 
-        emit Creation(betId);
+        emit Creation(betId, _outcomes, bet.judge);
     }
 
     function hasPlacedBet() view external returns (bool betPlaced) {
@@ -55,7 +55,7 @@ contract Bets {
     function betOn(uint _betId, uint _outcomeIndex, uint _stakeAmount) external {
         Bet storage bet = bets[_betId];
 
-        require(msg.sender == bet.judge, "Judges cannot participate in their bets");
+        require(msg.sender != bet.judge, "Judges cannot participate in their bets");
         require(_outcomeIndex < bet.outcomes.length, "Invalid outcome");
         require(token.balanceOf(msg.sender) >= _stakeAmount, "Not enough tokens");
 
@@ -69,6 +69,10 @@ contract Bets {
         emit BetPlaced(_betId, msg.sender, _outcomeIndex, _stakeAmount);
     }
 
+    function getJudgeOf(uint _betId) view external returns (address judge) {
+        return bets[_betId].judge;
+    }
+
     function revealOutcome(uint _betId, uint _outcomeIndex) internal {
         Bet storage bet = bets[_betId];
 
@@ -76,10 +80,13 @@ contract Bets {
         require(_outcomeIndex < bet.outcomes.length, "Invalid outcome");
 
         uint loserPot = 0;
+        uint winnerPot = 0;
         for (uint i = 0; i < participants.length; i++) {
             address participant = participants[i];
             Betting storage betting = bet.participantsBets[participant];
-            if (betting.outcomeSelected != _outcomeIndex) {
+            if (betting.outcomeSelected == _outcomeIndex) {
+                winnerPot += betting.stakeAmount;
+            } else {
                 loserPot += betting.stakeAmount;
             }
         }
@@ -88,7 +95,7 @@ contract Bets {
             participant = participants[i];
             betting = bet.participantsBets[participant];
             if (betting.outcomeSelected == _outcomeIndex) {
-                uint winnings = 0; // TODO
+                uint winnings = loserPot * betting.stakeAmount / winnerPot;
                 uint totalAmount = betting.stakeAmount + winnings;
                 token.transferFrom(this, participant, totalAmount);
             }
