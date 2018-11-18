@@ -10,3 +10,5 @@ const getContractFromName = contractName => async (web3) => {
 export const getBetsContract = getContractFromName('Bets');
 
 export const getTokenContract = getContractFromName('BettyToken');
+
+export const getUserProfilesContract = getContractFromName('UserProfiles');
