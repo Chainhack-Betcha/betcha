@@ -13,7 +13,7 @@ import Add from '@material-ui/icons/Add';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import BetchaDialog from './betchaDialog';
+import BetchaDialog from './BetchaDialog';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
@@ -21,8 +21,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 const styles = theme => ({
-<<<<<<< HEAD
-=======
   button: {
     marginLeft : 20,
   },
