@@ -2,11 +2,31 @@ import React, { Component } from 'react';
 import getWeb3 from './utils/getWeb3';
 import NewBetSection from './NewBetSection';
 import BetsService from './api/BetsService';
+import Button from '@material-ui/core/Button';
+import BetHistoryDialog from './betHistoryDialog';
+import PopUpCard1 from './popBetCardOne';
+import PopUpCard2 from './popBetCardTwo';
+import PopUpCard3 from './popBetCardThree';
+import PopUpCard4 from './popBetCardFour';
+import PopUpCard5 from './popBetCardFive';
+import PopUpCard6 from './popBetCardSix';
 
 import './App.css';
 
+
+
+ const opens = ["openHistory1", "openHistory2", "openHistory3", "openHistory4", "openHistory5", "openHistory6"];
+
 export default class App extends Component {
-  state = { web3: null, betsService: null };
+  state = { web3: null, 
+            betsService: null , 
+            openHistory1: false,
+            openHistory2: false,
+            openHistory3: false,
+            openHistory4: false,
+            openHistory5: false,
+            openHistory6: false
+          };
 
   componentDidMount = async () => {
     try {
@@ -25,17 +45,29 @@ export default class App extends Component {
   onCreateBet = () => (bet) => {
     console.log('Create bet');
     console.log(bet);
+  };
+
+  openHistory = () => (index) => {
+
+    if (index == 1) {
+    this.setState({openHistory1: true});
   }
 
-  render() {
+
+   
+  };
+
+  render = () => {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
 
-    const { betsService } = this.state;
+
+    const { betsService, openHistory1, openHistory2, openHistory3, openHistory4, openHistory5, openHistory6 } = this.state;
 
     return (
       <div>
+        <PopUpCard1 open={openHistory1}/>
         <nav className="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
           <div className="container">
             <a className="navbar-brand js-scroll-trigger" href="#page-top">
@@ -116,7 +148,8 @@ export default class App extends Component {
             <hr className="star-light mb-5" />
             <div className="row">
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+              <button type="button" id="modal1">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-1" onClick={this.openHistory(1)}>
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -124,9 +157,12 @@ export default class App extends Component {
                   </div>
                   <img className="img-fluid" src="img/portfolio/cabin.png" alt="" />
                 </a>
+   
+
+              </button>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-2" onClick={this.openHistory(2)}>
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -136,7 +172,7 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-3" onClick={this.openHistory(3)}>
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -146,7 +182,7 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-4" onClick={this.openHistory(4)}>
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -156,7 +192,7 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-5" onClick={this.openHistory(5)}>
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
@@ -166,7 +202,7 @@ export default class App extends Component {
                 </a>
               </div>
               <div className="col-md-6 col-lg-4">
-                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
+                <a className="portfolio-item d-block mx-auto" href="#portfolio-modal-6" onClick={this.openHistory(6)}>
                   <div className="portfolio-item-caption d-flex position-absolute h-100 w-100">
                     <div className="portfolio-item-caption-content my-auto w-100 text-center text-white">
                       <i className="fas fa-search-plus fa-3x" />
